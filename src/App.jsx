@@ -44,7 +44,7 @@ const Box = ({children, ...attr}) => {
 const Movie = ({ poster, title, year, onTogglePopup}) => {
 
   return (
-    <li className='flex gap-5 p-4 border-b border-b-[var(--secondary-color)] cursor-pointer hover:bg-[var(--accent-lime)]' onClick={() => }>
+    <li className='flex gap-5 p-4 border-b border-b-[var(--secondary-color)] cursor-pointer hover:bg-[var(--accent-lime)]'>
       <img className='rounded-r-2xl shadow-sm min-h-[100px] shadow-white' src={poster} alt={title} width='60' height='50'/>
       <div className="movie-info mt-1">
         <h3 className='font-bold text-[var(--primary-color)] text-[20px]'>{title}</h3>
