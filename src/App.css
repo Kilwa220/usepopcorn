@@ -3,13 +3,3 @@
 body {
   background-color: #141519;
 }
-
-.footer-info > *:hover{
-  color: green !important;
-  cursor: pointer;
-}
-
-.footer-info > *:has(~ *:hover) {
-  color: green !important;
-  cursor: pointer;
-}
