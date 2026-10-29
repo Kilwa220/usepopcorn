@@ -1,20 +1,21 @@
 import { FaStar } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Rating = ({ rate, onUserRate }) => {
+const Rating = ({ rate, onIconHover, onIconClick }) => {
   const options = Array.from({ length: 10 }, (_, i) =>
     rate >= i ? (
       <FaStar
         color="orange"
         className="inline cursor-pointer"
-        onMouseLeave={() => onUserRate(-1)}
+        onClick={() => onIconClick(i)}
+        onMouseLeave={() => onIconHover(-1, false)}
       />
     ) : (
       <FaRegStar
         color="orange"
         className="inline cursor-pointer"
-        onMouseEnter={() => onUserRate(i)}
+        onMouseEnter={() => onIconHover(i, true)}
       />
     ),
   );
@@ -27,10 +28,30 @@ const PopupMovie = ({
   onHiddePopup,
   onAddingToMyRatedMovies,
 }) => {
-  const [myRate, setMyRate] = useState(-1);
+  const [rate, setRate] = useState({
+    isHover: false,
+    rateValue: -1,
+  });
 
-  const handleUserRate = (rate) => {
-    setMyRate(rate);
+  const [isClick, setIsClick] = useState(false);
+
+  useEffect(() => {
+    console.log(rate);
+  }, [rate]);
+
+  const handleIconHover = (rateValue, isHover) => {
+    if (isClick) {
+      setRate((prev) => ({ ...prev, isHover: isHover, rateValue: rateValue }));
+    } else if (isHover) {
+      setRate((prev) => ({ ...prev, isHover: isHover, rateValue: rateValue }));
+    } else {
+      setRate((prev) => ({ ...prev, isHover: isHover, rateValue: rateValue }));
+    }
+  };
+
+  const handleIconClick = (rateValue) => {
+    setRate((prev) => ({ ...prev, rateValue: rateValue }));
+    setIsClick(true);
   };
   return (
     <div
@@ -77,7 +98,13 @@ const PopupMovie = ({
               </ul>
             </div>
 
-            <Rating rate={myRate} onUserRate={handleUserRate} />
+            <Rating
+              rate={rate.rateValue}
+              onIconHover={handleIconHover}
+              onIconClick={handleIconClick}
+            />
+
+            {!rate.isNotRated ? <button type="button">Add to list</button> : ""}
           </div>
         </div>
       </div>
